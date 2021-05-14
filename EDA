@@ -1,0 +1,394 @@
+# TASK-3 Exploratory Data Analysis - Retail
+
+### Author- Clintan Cyril A
+
+### Objective - Performing ‘Exploratory Data Analysis’ on dataset ‘SampleSuperstore
+### To find out the weak areas where you can work to make more profit.
+
+
+
+
+
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as pl
+
+Reading The Dataset 
+
+df=pd.read_csv("C:/Users/Clintan Cyril/Downloads/SampleSuperstore.csv")
+df.head()
+
+Displaying The Shape Of DataFrame
+
+df.shape
+
+Summary Of The DataFrame
+
+df.describe()
+
+Finding null values
+
+df.isnull().sum()
+
+Showing the column values
+
+df.columns
+
+Show info of the dataset
+
+df.info
+
+Finding the unique attributes in column
+
+df.nunique()
+
+Finding the No. of Duplicated Values
+
+df.duplicated().sum()
+
+Dropping duplicates
+
+df.drop_duplicates()
+
+Dropping the unwanted columns
+
+
+df1 = df.drop(['Postal Code'],axis="columns")
+df.head(3)
+
+creating pairplot to visualize the Data
+
+sns.pairplot(df1)
+
+Finding the correlated heat map
+
+corr = df.corr()
+sns.heatmap(corr,annot=True,cmap='magma')
+
+
+Deriving the data from Ship mode column
+
+
+
+df['Ship Mode'].value_counts()
+
+
+
+sns.countplot(x=df['Ship Mode'])
+
+
+Deriving the data from segment column
+
+df['Segment'].value_counts()
+
+Plotting a pairplot and differentiating on the basis of segment
+
+sns.pairplot(df,hue = 'Segment')
+
+sns.countplot(x = 'Segment',data = df, palette = 'Accent')
+
+Deriving the data from catagory column
+
+df['Category'].value_counts()
+
+sns.countplot(x='Category',data=df,palette='gnuplot')
+
+Plotting a pairplot and differentiating on the basis of catagory
+
+
+sns.pairplot(df,hue='Category')
+
+Deriving the data from sub-catagory column
+
+df['Sub-Category'].value_counts()
+
+plt.figure(figsize=(20,15))
+df['Sub-Category'].value_counts().plot.pie()
+plt.show()
+
+Observation 1
+
+Maximum are from Binders, Paper, furnishings, Phones, storage, art, accessories and minimum from copiers, machines, suppliers
+
+Deriving the data from state column
+
+df['State'].value_counts()
+
+plt.figure(figsize=(20,15))
+sns.countplot(x='State',data=df,palette='deep',order=df['State'].value_counts().index)
+plt.xticks(rotation=90)
+plt.show()
+
+
+Observation 2
+
+Highest number of buyers are from California and New York
+
+df.hist(figsize=(10,10),bins=50)
+plt.show()
+
+
+Observation 3
+
+Most customers tends to buy quantity of 2 and 3
+
+Discount give maximum is 0 to 20 percent
+
+plt.figure(figsize=(15,10))
+df['Region'].value_counts().plot.pie(autopct = '%1.1f%%')
+plt.show()
+
+Profit vs Discount
+
+
+fig,ax=plt.subplots(figsize=(18,12))
+ax.scatter(df['Sales'],df['Profit'])
+ax.set_xlabel('Sales')
+ax.set_ylabel('Profit')
+plt.show()
+
+sns.lineplot(x='Discount',y='Profit',label='Profit',data=df1)
+plt.legend()
+plt.show()
+
+observation 4
+
+No correlation between profit and discount
+
+df1.groupby('Segment')[['Profit','Sales']].sum().plot.bar(color=['pink','blue'],figsize=(8,5))
+plt.ylabel('Profit/Loss and sales')
+plt.show()
+
+Observation 5
+
+Profit and sales are maximum in consumer segment and minimum in Home Office segment
+
+plt.figure(figsize=(18,12))
+plt.title('Sale in each region based on segment')
+sns.barplot(x='Region',y='Sales',data=df,hue='Segment',order=df['Region'].value_counts().index,palette='hot')
+plt.xlabel('Region',fontsize=15)
+plt.show()
+
+Observation 6
+
+Segment wise sales are almost same in every region
+
+df1.groupby('Region')[['Profit','Sales']].sum().plot.bar(color=['green','red'],figsize=(8,5))
+plt.ylabel('Profit/Loss and sales')
+plt.show()
+
+
+Observation 7
+
+As a business manager, try to find out the weak areas where you can work to make more profit?
+
+Technology and Office Supplies have high profit.
+
+Furniture have less profit
+
+ps = df1.groupby('Sub-Category')[['Sales','Profit']].sum().sort_values(by='Sales',ascending=False)
+ps[:].plot.bar(color=['brown','violet'],figsize=(15,12))
+plt.title('Profit/loss & Sales in states')
+plt.xlabel('Sub-Category')
+plt.ylabel('Profit/loss & Sales')
+plt.show()
+
+# TASK-3 Exploratory Data Analysis - Retail
+
+### Author- Clintan Cyril A
+
+### Objective - Performing ‘Exploratory Data Analysis’ on dataset ‘SampleSuperstore
+### To find out the weak areas where you can work to make more profit.
+
+
+
+
+
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as pl
+
+Reading The Dataset 
+
+df=pd.read_csv("C:/Users/Clintan Cyril/Downloads/SampleSuperstore.csv")
+df.head()
+
+Displaying The Shape Of DataFrame
+
+df.shape
+
+Summary Of The DataFrame
+
+df.describe()
+
+Finding null values
+
+df.isnull().sum()
+
+Showing the column values
+
+df.columns
+
+Show info of the dataset
+
+df.info
+
+Finding the unique attributes in column
+
+df.nunique()
+
+Finding the No. of Duplicated Values
+
+df.duplicated().sum()
+
+Dropping duplicates
+
+df.drop_duplicates()
+
+Dropping the unwanted columns
+
+
+df1 = df.drop(['Postal Code'],axis="columns")
+df.head(3)
+
+creating pairplot to visualize the Data
+
+sns.pairplot(df1)
+
+Finding the correlated heat map
+
+corr = df.corr()
+sns.heatmap(corr,annot=True,cmap='magma')
+
+
+Deriving the data from Ship mode column
+
+
+
+df['Ship Mode'].value_counts()
+
+
+
+sns.countplot(x=df['Ship Mode'])
+
+
+Deriving the data from segment column
+
+df['Segment'].value_counts()
+
+Plotting a pairplot and differentiating on the basis of segment
+
+sns.pairplot(df,hue = 'Segment')
+
+sns.countplot(x = 'Segment',data = df, palette = 'Accent')
+
+Deriving the data from catagory column
+
+df['Category'].value_counts()
+
+sns.countplot(x='Category',data=df,palette='gnuplot')
+
+Plotting a pairplot and differentiating on the basis of catagory
+
+
+sns.pairplot(df,hue='Category')
+
+Deriving the data from sub-catagory column
+
+df['Sub-Category'].value_counts()
+
+plt.figure(figsize=(20,15))
+df['Sub-Category'].value_counts().plot.pie()
+plt.show()
+
+Observation 1
+
+Maximum are from Binders, Paper, furnishings, Phones, storage, art, accessories and minimum from copiers, machines, suppliers
+
+Deriving the data from state column
+
+df['State'].value_counts()
+
+plt.figure(figsize=(20,15))
+sns.countplot(x='State',data=df,palette='deep',order=df['State'].value_counts().index)
+plt.xticks(rotation=90)
+plt.show()
+
+
+Observation 2
+
+Highest number of buyers are from California and New York
+
+df.hist(figsize=(10,10),bins=50)
+plt.show()
+
+
+Observation 3
+
+Most customers tends to buy quantity of 2 and 3
+
+Discount give maximum is 0 to 20 percent
+
+plt.figure(figsize=(15,10))
+df['Region'].value_counts().plot.pie(autopct = '%1.1f%%')
+plt.show()
+
+Profit vs Discount
+
+
+fig,ax=plt.subplots(figsize=(18,12))
+ax.scatter(df['Sales'],df['Profit'])
+ax.set_xlabel('Sales')
+ax.set_ylabel('Profit')
+plt.show()
+
+sns.lineplot(x='Discount',y='Profit',label='Profit',data=df1)
+plt.legend()
+plt.show()
+
+observation 4
+
+No correlation between profit and discount
+
+df1.groupby('Segment')[['Profit','Sales']].sum().plot.bar(color=['pink','blue'],figsize=(8,5))
+plt.ylabel('Profit/Loss and sales')
+plt.show()
+
+Observation 5
+
+Profit and sales are maximum in consumer segment and minimum in Home Office segment
+
+plt.figure(figsize=(18,12))
+plt.title('Sale in each region based on segment')
+sns.barplot(x='Region',y='Sales',data=df,hue='Segment',order=df['Region'].value_counts().index,palette='hot')
+plt.xlabel('Region',fontsize=15)
+plt.show()
+
+Observation 6
+
+Segment wise sales are almost same in every region
+
+df1.groupby('Region')[['Profit','Sales']].sum().plot.bar(color=['green','red'],figsize=(8,5))
+plt.ylabel('Profit/Loss and sales')
+plt.show()
+
+
+Observation 7
+
+As a business manager, try to find out the weak areas where you can work to make more profit?
+
+Technology and Office Supplies have high profit.
+
+Furniture have less profit
+
+ps = df1.groupby('Sub-Category')[['Sales','Profit']].sum().sort_values(by='Sales',ascending=False)
+ps[:].plot.bar(color=['brown','violet'],figsize=(15,12))
+plt.title('Profit/loss & Sales in states')
+plt.xlabel('Sub-Category')
+plt.ylabel('Profit/loss & Sales')
+plt.show()
+
